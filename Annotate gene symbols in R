@@ -1,0 +1,6 @@
+#Annotating list of genes with ensemble ID
+library(biomaRt)
+mart <- useMart("ensembl", dataset="hsapiens_gene_ensembl")
+attributes=c('ensembl_gene_id', 'hgnc_symbol', 'chromosome_name', 'start_position', 'end_position')
+gene_list_e = getBM(attributes=attributes, filters="hgnc_symbol",values=gene_list,
+                    mart=mart, uniqueRows=T)

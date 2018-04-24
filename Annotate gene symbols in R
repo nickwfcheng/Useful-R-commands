@@ -1,10 +1,11 @@
-#Annotating list of genes with ensemble ID
+#Annotating list of genes with ensemble ID 
 library(biomaRt)
-mart <- useMart("ensembl", dataset="hsapiens_gene_ensembl")
-attributes=c('ensembl_gene_id', 'hgnc_symbol', 'chromosome_name', 'start_position', 'end_position')
+mart <- useMart("ensembl", dataset="hsapiens_gene_ensembl", host="grch37.ensembl.org")
+attributes=c('chromosome_name', 'start_position', 'end_position','ensembl_gene_id', 'hgnc_symbol')
 gene_list_e = getBM(attributes=attributes, filters="hgnc_symbol",values=gene_list,
                     mart=mart, uniqueRows=T)
 
-
+gene_unmatch = setdiff(gene_list, gene_list_e$hgnc_symbol)
+     
 #To see possible annotates:
-listAttributes(mart)
+listAttributes(mart)   
